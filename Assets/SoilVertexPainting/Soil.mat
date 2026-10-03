@@ -43,7 +43,7 @@ Material:
     m_Colors:
     - _DryColor: {r: 0.654902, g: 0.18999994, b: 0.08999997, a: 1}
     - _NutrientColor: {r: 0.19999996, g: 0.12999997, b: 0.059999965, a: 1}
-    - _TerrainTiling: {r: 10, g: 10, b: 10, a: 0}
+    - _TerrainTiling: {r: 25, g: 25, b: 25, a: 25}
     - _TerrainTint: {r: 1, g: 1, b: 1, a: 1}
     - _WetColor: {r: 0.09999997, g: 0.064999975, b: 0.035, a: 1}
   m_BuildTextureStacks: []
