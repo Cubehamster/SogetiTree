@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aec0c7c0246fd174eafc40c586634c15, type: 3}
+  m_Name: GeneratedSoilPalette
+  m_EditorClassIdentifier: Assembly-CSharp::TreePlanting.SoilTexturePalette
+  textures:
+  - {fileID: 2800000, guid: 65d8a6ff47cde50448e9465ee6bf0a21, type: 3}
+  - {fileID: 2800000, guid: d76d1883e8cdd854b9e61544cffd540a, type: 3}
+  - {fileID: 2800000, guid: 483103fcf19f6c74d924bdd302bc4479, type: 3}
+  - {fileID: 2800000, guid: 8a09ddf0aa5b2e740b174ed18719a55c, type: 3}
+  - {fileID: 2800000, guid: 3ba36af93119c3248b0af2c5dcd7a11b, type: 3}
+  - {fileID: 2800000, guid: bc98d36fc82b2e7409a153f9a323a5ac, type: 3}
+  - {fileID: 2800000, guid: 7ac2e808c22c84d44943e7013aa822d8, type: 3}
+  - {fileID: 2800000, guid: d9bac602e6cc99447a6c2cb8c5246890, type: 3}
+  - {fileID: 2800000, guid: 754759e586f716e40b7515116de423d6, type: 3}
+  - {fileID: 2800000, guid: 7526bdcfbf9cd404b80b3c2600846224, type: 3}
+  - {fileID: 2800000, guid: 2caee9c1456e54a489285d5e64f317e8, type: 3}
+  - {fileID: 2800000, guid: 8b30b4a9075829741a481764d47804e5, type: 3}
+  - {fileID: 2800000, guid: 534302045018efb419de5e83f5343408, type: 3}
+  - {fileID: 2800000, guid: 91d9a5dbeac74ed4fade51a5df8af637, type: 3}
+  - {fileID: 2800000, guid: 36a6ae96a022ea04a8ac3587bbd69fda, type: 3}
+  - {fileID: 2800000, guid: 575aff04cb2a52c4aa3bad6b1301486c, type: 3}
+  - {fileID: 2800000, guid: b74a476b69074364f8817d60c9d6e146, type: 3}
+  - {fileID: 2800000, guid: b92a487c93d6d6a4f93aad50a69ab8e4, type: 3}
+  - {fileID: 2800000, guid: c0c59e185e881a748be733eb1183a354, type: 3}
+  - {fileID: 2800000, guid: a7735aa03fd3fda41840672aabe95b9d, type: 3}
+  - {fileID: 2800000, guid: 75aee2883cb52c8478c8a483ef290953, type: 3}
+  - {fileID: 2800000, guid: bb50084e141fe964e95de6113d8097ea, type: 3}
+  - {fileID: 2800000, guid: 690492d7dd4b5f945a2624a9aecee67e, type: 3}
+  - {fileID: 2800000, guid: 573f4346d692e7e4c967ad786a4f7729, type: 3}
+  - {fileID: 2800000, guid: c5625a00299c5c54699b108a2603a420, type: 3}
+  - {fileID: 2800000, guid: 926fff12f38c7f34fb8939f23e1bdcd8, type: 3}
+  - {fileID: 2800000, guid: 9682e218059279344bf828627fd759e1, type: 3}
+  bakedArray: {fileID: 18700000, guid: f7aa54c051e8c154884050639a1f62ac, type: 2}
+  soilMaterial: {fileID: 2100000, guid: ca6c5dbde0161ef43961c4e710134ce8, type: 2}

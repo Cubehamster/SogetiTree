@@ -1,0 +1,299 @@
+[
+  {
+    "name": "Desert Sand",
+    "description": "dry loose barren pale warm tan fine sand, subtle tiny grains and low-amplitude irregular surface ripples",
+    "rgb": [
+      0,
+      0,
+      0
+    ],
+    "filename": "00_desert_sand.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture, Desert Sand (soil RGB 0,0,0): dry loose barren pale warm tan fine sand, subtle tiny grains and low-amplitude irregular surface ripples. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no highlights, no ambient occlusion baked in, no horizon, no objects, no labels, no borders. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy palette suitable for blending with other soil textures."
+  },
+  {
+    "name": "Damp Sand",
+    "description": "moist light tan fine sand, slightly darker than desert sand, subtle fine ripples, almost no organic material",
+    "rgb": [
+      0,
+      0,
+      0.5
+    ],
+    "filename": "01_damp_sand.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Damp Sand: moist light tan fine sand, slightly darker than desert sand, subtle fine ripples, almost no organic material. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Wet Sand",
+    "description": "saturated dark beige sand, densely packed fine grains, tiny flat wet patches without reflections, no organic material",
+    "rgb": [
+      0,
+      0,
+      1
+    ],
+    "filename": "02_wet_sand.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Wet Sand: saturated dark beige sand, densely packed fine grains, tiny flat wet patches without reflections, no organic material. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Sandy Soil",
+    "description": "dry tan sandy soil mixed with modest brown fertile particles, no plants",
+    "rgb": [
+      0,
+      0.5,
+      0
+    ],
+    "filename": "03_sandy_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Sandy Soil: dry tan sandy soil mixed with modest brown fertile particles, no plants. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Sandy Grassland",
+    "description": "moist sandy earth with sparse short low grass blades in scattered small patches, mostly visible sandy ground",
+    "rgb": [
+      0,
+      0.5,
+      0.5
+    ],
+    "filename": "04_sandy_grassland.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Sandy Grassland: moist sandy earth with sparse short low grass blades in scattered small patches, mostly visible sandy ground. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Sandy Mud",
+    "description": "waterlogged sandy brown soil with organic flecks, soft fine granular muddy surface",
+    "rgb": [
+      0,
+      0.5,
+      1
+    ],
+    "filename": "05_sandy_mud.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Sandy Mud: waterlogged sandy brown soil with organic flecks, soft fine granular muddy surface. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Dry Garden Soil",
+    "description": "loose dry rich brown topsoil, fine crumbly organic particles, subtle small aggregates",
+    "rgb": [
+      0,
+      1,
+      0
+    ],
+    "filename": "06_dry_garden_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Dry Garden Soil: loose dry rich brown topsoil, fine crumbly organic particles, subtle small aggregates. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Rich Garden Soil",
+    "description": "loose moist dark chocolate fertile garden earth, crumbly organic matter, a few tiny root fragments",
+    "rgb": [
+      0,
+      1,
+      0.5
+    ],
+    "filename": "07_rich_garden_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Rich Garden Soil: loose moist dark chocolate fertile garden earth, crumbly organic matter, a few tiny root fragments. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Rich Mud",
+    "description": "soft saturated almost black-brown organic mud, fine smooth slurry interrupted by tiny decomposed plant flecks",
+    "rgb": [
+      0,
+      1,
+      1
+    ],
+    "filename": "08_rich_mud.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Rich Mud: soft saturated almost black-brown organic mud, fine smooth slurry interrupted by tiny decomposed plant flecks. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Barren Earth",
+    "description": "dry compact muted ochre-brown barren earth, fine clay grit, small sparse shallow cracks, no plants",
+    "rgb": [
+      0.5,
+      0,
+      0
+    ],
+    "filename": "09_barren_earth.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Barren Earth: dry compact muted ochre-brown barren earth, fine clay grit, small sparse shallow cracks, no plants. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Damp Barren Earth",
+    "description": "moist compact muted gray-brown barren earth, firm packed fine grit, no plants",
+    "rgb": [
+      0.5,
+      0,
+      0.5
+    ],
+    "filename": "10_damp_barren_earth.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Damp Barren Earth: moist compact muted gray-brown barren earth, firm packed fine grit, no plants. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Barren Marsh Soil",
+    "description": "saturated firm low-fertility gray-brown soil, compact flat muddy mineral surface, no vegetation",
+    "rgb": [
+      0.5,
+      0,
+      1
+    ],
+    "filename": "11_barren_marsh_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Barren Marsh Soil: saturated firm low-fertility gray-brown soil, compact flat muddy mineral surface, no vegetation. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Dry Scrub Soil",
+    "description": "dry moderately fertile brown stony earth, tiny scattered pebbles and very sparse short dried grass",
+    "rgb": [
+      0.5,
+      0.5,
+      0
+    ],
+    "filename": "12_dry_scrub_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Dry Scrub Soil: dry moderately fertile brown stony earth, tiny scattered pebbles and very sparse short dried grass. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Grassy Soil",
+    "description": "firm moderately fertile brown soil supporting healthy short grass in patchy low mats, soil visibly exposed between tufts",
+    "rgb": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "filename": "13_grassy_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Grassy Soil: firm moderately fertile brown soil supporting healthy short grass in patchy low mats, soil visibly exposed between tufts. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Marsh Soil",
+    "description": "waterlogged gray-brown soil with scattered low short wet grass and small reed stubble, visible saturated ground",
+    "rgb": [
+      0.5,
+      0.5,
+      1
+    ],
+    "filename": "14_marsh_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Marsh Soil: waterlogged gray-brown soil with scattered low short wet grass and small reed stubble, visible saturated ground. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Volcanic Soil",
+    "description": "fertile dry dark reddish-brown volcanic earth, gritty small dark porous basalt gravel, no large rocks",
+    "rgb": [
+      0.5,
+      1,
+      0
+    ],
+    "filename": "15_volcanic_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Volcanic Soil: fertile dry dark reddish-brown volcanic earth, gritty small dark porous basalt gravel, no large rocks. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Lush Meadow Soil",
+    "description": "firm fertile dark brown ground with dense fine short living meadow grass, tiny exposed soil pockets",
+    "rgb": [
+      0.5,
+      1,
+      0.5
+    ],
+    "filename": "16_lush_meadow_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Lush Meadow Soil: firm fertile dark brown ground with dense fine short living meadow grass, tiny exposed soil pockets. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Rich Swamp Soil",
+    "description": "saturated fertile dark organic soil with abundant decomposed plant matter and small low green wetland growth",
+    "rgb": [
+      0.5,
+      1,
+      1
+    ],
+    "filename": "17_rich_swamp_soil.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Rich Swamp Soil: saturated fertile dark organic soil with abundant decomposed plant matter and small low green wetland growth. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Bare Rock",
+    "description": "dry exposed neutral gray bedrock, angular shallow surface cracks and small rock plates, no fertile soil or vegetation",
+    "rgb": [
+      1,
+      0,
+      0
+    ],
+    "filename": "18_bare_rock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Bare Rock: dry exposed neutral gray bedrock, angular shallow surface cracks and small rock plates, no fertile soil or vegetation. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Damp Rock",
+    "description": "moist mostly bare neutral dark gray bedrock, angular shallow cracks, subtly darkened damp areas, no vegetation",
+    "rgb": [
+      1,
+      0,
+      0.5
+    ],
+    "filename": "19_damp_rock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Damp Rock: moist mostly bare neutral dark gray bedrock, angular shallow cracks, subtly darkened damp areas, no vegetation. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Waterlogged Rock",
+    "description": "continuously soaked dark gray bedrock beneath a thin clear film of water suggested by subdued color changes only, no reflections or glare",
+    "rgb": [
+      1,
+      0,
+      1
+    ],
+    "filename": "20_waterlogged_rock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Waterlogged Rock: continuously soaked dark gray bedrock beneath a thin clear film of water suggested by subdued color changes only, no reflections or glare. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Dusty Rock",
+    "description": "dry gray rock with pockets of dusty moderately fertile brown soil in shallow cracks, no plants",
+    "rgb": [
+      1,
+      0.5,
+      0
+    ],
+    "filename": "21_dusty_rock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Dusty Rock: dry gray rock with pockets of dusty moderately fertile brown soil in shallow cracks, no plants. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Mossy Rock",
+    "description": "damp gray bedrock with moderately fertile soil pockets and scattered small olive-green moss patches",
+    "rgb": [
+      1,
+      0.5,
+      0.5
+    ],
+    "filename": "22_mossy_rock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Mossy Rock: damp gray bedrock with moderately fertile soil pockets and scattered small olive-green moss patches. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Algae-Covered Rock",
+    "description": "soaked gray bedrock with thin muted green algae surface patches and small muddy soil pockets, no reflections",
+    "rgb": [
+      1,
+      0.5,
+      1
+    ],
+    "filename": "23_algae_covered_rock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Algae-Covered Rock: soaked gray bedrock with thin muted green algae surface patches and small muddy soil pockets, no reflections. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Soil-Pocketed Rock",
+    "description": "dry gray bedrock with rich dark brown organic soil accumulated in numerous shallow cracks and small pockets",
+    "rgb": [
+      1,
+      1,
+      0
+    ],
+    "filename": "24_soil_pocketed_rock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Soil-Pocketed Rock: dry gray bedrock with rich dark brown organic soil accumulated in numerous shallow cracks and small pockets. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Overgrown Rock",
+    "description": "gray bedrock with fertile dark soil pockets, moss and tiny low green plants covering about half of the rocky surface",
+    "rgb": [
+      1,
+      1,
+      0.5
+    ],
+    "filename": "25_overgrown_rock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Overgrown Rock: gray bedrock with fertile dark soil pockets, moss and tiny low green plants covering about half of the rocky surface. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  },
+  {
+    "name": "Swamp Bedrock",
+    "description": "soaked dark gray bedrock covered in rich organic sediment pockets and low wetland moss, visible dark stone remains",
+    "rgb": [
+      1,
+      1,
+      1
+    ],
+    "filename": "26_swamp_bedrock.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: seamless tileable albedo texture for a Unity URP VR tree planting game. Generate ONE square texture named Swamp Bedrock: soaked dark gray bedrock covered in rich organic sediment pockets and low wetland moss, visible dark stone remains. Orthographic straight-down close-up covering about 1 square meter of ground, edge-to-edge material only. Natural realistic game texture, moderate microdetail readable at 512px, neutral diffuse illumination, no directional shadows, no specular highlights, no ambient occlusion baked in, no horizon, no isolated large objects, no labels, no borders, no flowers. Seamless repeating texture: left and right edges match, top and bottom edges match, uniform density throughout, no central motif or vignette. Opaque RGB color/albedo only, not a material sphere, not a rendered landscape. Consistent muted earthy colors. The overall palette is tan sands, chocolate and gray-brown earth, natural olive-green grass and moss, neutral gray rock. Wetness affects color rather than baked lighting. Ground-level vegetation must appear as low surface coverage rather than tall plants."
+  }
+]
