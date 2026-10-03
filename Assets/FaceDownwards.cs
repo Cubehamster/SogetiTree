@@ -8,24 +8,26 @@ public class FaceDownwards : MonoBehaviour
 
     private void OnEnable()
     {
-        if (Vector3.Dot(transform.up, transform.parent.up) < 0.7)
+        if (Vector3.Dot(Vector3.up, transform.parent.up) < 0.7)
         {
-            ApplyRotation();
-            projector.enabled = true;
+            projector.enabled = false;
         }
         else
-            projector.enabled = false;
+            projector.enabled = true;
+
+        ApplyRotation();
     }
 
     private void LateUpdate()
     {
-        if(Vector3.Dot(transform.up, transform.parent.up) < 0.7)
+        if(Vector3.Dot(Vector3.up, transform.parent.up) < 0.7)
         {
-            ApplyRotation();
-            projector.enabled = true;
+            projector.enabled = false;
         }
         else
-            projector.enabled = false;
+            projector.enabled = true;
+
+        ApplyRotation();
     }
 
     private void ApplyRotation()

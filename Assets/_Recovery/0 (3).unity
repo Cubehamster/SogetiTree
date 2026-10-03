@@ -297,10 +297,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: ca6c5dbde0161ef43961c4e710134ce8, type: 2}
     - target: {fileID: -516098083770646512, guid: c794d50fdcc465b48ae550935591fb04, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -516098083770646512, guid: c794d50fdcc465b48ae550935591fb04, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -9006,6 +9002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[BuildingBlock] Pine (Small)'
       objectReference: {fileID: 0}
+    - target: {fileID: 9121172136571598533, guid: f257d677567b7564ea4c3944d91b7b58, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9019,6 +9019,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 832501769}
     m_Modifications:
+    - target: {fileID: 3978456871455965044, guid: ce2404fd8aefcf54eb5efe271a8aa78c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4307147352551008380, guid: ce2404fd8aefcf54eb5efe271a8aa78c, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Ginko (Sapling)'
@@ -9080,6 +9084,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[BuildingBlock] Pine (Big)'
       objectReference: {fileID: 0}
+    - target: {fileID: 3923861873665834443, guid: 06c2b4e76298abe47ad08da54593dc7e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4011556783361995466, guid: 06c2b4e76298abe47ad08da54593dc7e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9136,6 +9144,10 @@ PrefabInstance:
     - target: {fileID: 6984559679932985805, guid: 43e2d282be8603d4d8565487bca3835a, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Sakura (Big Dead)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205864135328128650, guid: 43e2d282be8603d4d8565487bca3835a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8320202050380015177, guid: 43e2d282be8603d4d8565487bca3835a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9250,6 +9262,10 @@ PrefabInstance:
     - target: {fileID: 561359483748575566, guid: e5ff67c87153c6c46812b13e261dc968, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Ginko (Big Dead)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 951454569350930278, guid: e5ff67c87153c6c46812b13e261dc968, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1689955584519734593, guid: e5ff67c87153c6c46812b13e261dc968, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9405,6 +9421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[BuildingBlock] Pine (Sapling)'
       objectReference: {fileID: 0}
+    - target: {fileID: 6131297587994588979, guid: 2ecc155bd91382d478bc1b36921641cd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9418,6 +9438,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2076059289}
     m_Modifications:
+    - target: {fileID: 41516717968401324, guid: a6a641807470c3c4ab30ad4dec78de91, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4078694935188567871, guid: a6a641807470c3c4ab30ad4dec78de91, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Sakura (Small)'
@@ -9515,6 +9539,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3591861266683462879, guid: 083edaf971c3e1d458f8c15f4d427763, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6911335908405585081, guid: 083edaf971c3e1d458f8c15f4d427763, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Sakura (Big)'
@@ -9532,6 +9560,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455138822}
     m_Modifications:
+    - target: {fileID: 6550169076708314497, guid: 25a961ea1cd9d504fb640ca6420164a5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6741771752769073810, guid: 25a961ea1cd9d504fb640ca6420164a5, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Pine (Big Dead)'
@@ -9592,6 +9624,10 @@ PrefabInstance:
     - target: {fileID: 3054711115672120496, guid: 08e79dd7c2ca9134fb96c072d10dc15b, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Ginko (Big)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4236147473654045839, guid: 08e79dd7c2ca9134fb96c072d10dc15b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8547872990577071246, guid: 08e79dd7c2ca9134fb96c072d10dc15b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9690,6 +9726,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[BuildingBlock] Ginko (Small)'
       objectReference: {fileID: 0}
+    - target: {fileID: 7941973984020984732, guid: fe77ec3345fdcec4db9e11372a5e3bc0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9747,6 +9787,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9078779349871170118, guid: 9af02e09259d3184d90d32eb15aa7010, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9760,6 +9804,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455138822}
     m_Modifications:
+    - target: {fileID: 4656403286487297192, guid: a2cf65e8bcf7dbf4a836a3ef6b51f2f4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5990350220072266530, guid: a2cf65e8bcf7dbf4a836a3ef6b51f2f4, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Pine (Small Dead)'
@@ -9861,6 +9909,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8471998248692489831, guid: 6e4be885911d8d94c9cdad6e3ccfdf62, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9874,6 +9926,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2076059289}
     m_Modifications:
+    - target: {fileID: 1025889068527947726, guid: c44aa8926849b154a96bfe6fd29e6223, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6084416524944473071, guid: c44aa8926849b154a96bfe6fd29e6223, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] Sakura (Small Dead)'

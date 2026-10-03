@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1681476081484369686}
   - component: {fileID: 3082221540175665960}
   - component: {fileID: 3222920800603274842}
+  - component: {fileID: 3238427138815678027}
   m_Layer: 0
   m_Name: '[BuildingBlock] Ginko (Big)'
   m_TagString: Untagged
@@ -125,6 +126,28 @@ MonoBehaviour:
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 1
   _forceKinematicDisabled: 0
+--- !u!114 &3238427138815678027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054711115672120496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa2137f85132c94c963b189218e3ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreePlanter
+  grabbable: {fileID: 3222920800603274842}
+  treeTransform: {fileID: 8547872990577071246}
+  rootPoint: {fileID: 8547872990577071246}
+  treeRigidbody: {fileID: 3082221540175665960}
+  rayDistance: 0.1
+  rayStartOffset: 0.1
+  snapDuration: 0.3
+  onPlanted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7742601583205538371
 GameObject:
   m_ObjectHideFlags: 0
