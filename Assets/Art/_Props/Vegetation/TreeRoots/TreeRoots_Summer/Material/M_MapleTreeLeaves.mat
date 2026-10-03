@@ -377,7 +377,7 @@ Material:
     - _SpecularColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
     - _Tiling: {r: 4, g: 4, b: 0, a: 0}
     - _TilingOffset: {r: 1, g: 1, b: 0, a: 0}
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 0.6987208, g: 0.8396226, b: 0.6930847, a: 1}
     - _TreeInstanceScale: {r: 0, g: 0, b: 0, a: 0}
     - _TreeOffset: {r: 0, g: 0, b: 0, a: 0}
     - _TreeOffset1: {r: 0, g: 5, b: 0, a: 0}
