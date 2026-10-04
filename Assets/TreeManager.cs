@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [DisallowMultipleComponent]
 public sealed class TreeManager : MonoBehaviour
@@ -10,6 +11,47 @@ public sealed class TreeManager : MonoBehaviour
     {
         public string treeType;
         public TreeObjectPool pool;
+    }
+
+    [Header("Game")]
+    [SerializeField, Min(0)] private int startingPoints = 200;
+    [SerializeField, Min(1f)] private float gameDurationSeconds = 600f;
+    [SerializeField] private bool startAutomatically;
+    [SerializeField] private UnityEvent onGameEnded = new UnityEvent();
+    public int Score { get; private set; }
+    public float RemainingSeconds { get; private set; }
+    public bool IsGameRunning { get; private set; }
+    public event Action<int> ScoreChanged;
+    public string TimerText
+    {
+        get { int seconds = Mathf.CeilToInt(RemainingSeconds); return (seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00"); }
+    }
+    private void Awake() { Score = startingPoints; RemainingSeconds = gameDurationSeconds; }
+    private void Start() { if (startAutomatically) StartGame(); }
+    public void StartGame()
+    {
+        if (IsGameRunning) return;
+        RemainingSeconds = gameDurationSeconds;
+        IsGameRunning = true;
+    }
+    private void Update()
+    {
+        if (!IsGameRunning) return;
+        RemainingSeconds = Mathf.Max(0f, RemainingSeconds - Time.deltaTime);
+        if (RemainingSeconds <= 0f) { IsGameRunning = false; onGameEnded.Invoke(); }
+    }
+    public void AddPoints(int amount)
+    {
+        if (!IsGameRunning || amount <= 0) return;
+        Score = (int)Math.Min(int.MaxValue, (long)Score + amount);
+        ScoreChanged?.Invoke(Score);
+    }
+    public bool TrySpendPoints(int amount)
+    {
+        if (!IsGameRunning || amount < 0 || Score < amount) return false;
+        Score -= amount;
+        ScoreChanged?.Invoke(Score);
+        return true;
     }
 
     [SerializeField] private TreeTypePool[] treePools = new TreeTypePool[0];

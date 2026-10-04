@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750956eabaef30646956594343fb9996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TreeSoilDisplay
-  externalInput: 0
+  externalInput: 1
   showExternalRequirements: 0
   treePlanter: {fileID: 0}
   treeState: {fileID: 0}
@@ -89,5 +89,5 @@ MonoBehaviour:
   rotationDegreesPerSecond: 12
   showWhilePlanted: 1
   validSoilDotColor: {r: 0, g: 1, b: 0, a: 1}
-  displayShader: {fileID: 0}
+  displayShader: {fileID: 4800000, guid: db753b18e4fc674499e48264a6ef2215, type: 3}
   displayStatus: Not initialized

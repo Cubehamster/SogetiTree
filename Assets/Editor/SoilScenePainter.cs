@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace TreePlanting.Editor {
 public sealed class SoilScenePainter : EditorWindow {
-    [SerializeField] SoilSurface target;
+    [SerializeField] SoilManager target;
     [SerializeField] Mesh editableMesh;
     [SerializeField] bool brushEnabled;
-    [SerializeField] SoilChannel channel = SoilChannel.Water;
-    [SerializeField] SoilPaintMode mode = SoilPaintMode.Set;
+    [SerializeField] SoilPainter.Channel channel = SoilPainter.Channel.Water;
+    [SerializeField] SoilPainter.PaintMode mode = SoilPainter.PaintMode.Set;
     [SerializeField] float radius = .5f, value = .5f, strength = .2f, falloff = 1;
     [SerializeField] Color startingValues = new Color(.7f,.3f,.1f,1);
+    GameObject rayObject;
+    MeshCollider rayCollider;
     bool stroke;
     int strokeGroup, capturedControl;
     Vector3 lastPoint;
@@ -27,23 +29,24 @@ public sealed class SoilScenePainter : EditorWindow {
     }
     void OnDisable() {
         FinishStroke();
+        DestroyRayCollider();
         SceneView.duringSceneGui -= OnSceneGUI;
         Undo.undoRedoPerformed -= OnUndoRedo;
         EditorApplication.playModeStateChanged -= OnPlayMode;
     }
     void OnLostFocus() { FinishStroke(); }
-    void OnPlayMode(PlayModeStateChange state) { FinishStroke(); brushEnabled = false; Repaint(); }
+    void OnPlayMode(PlayModeStateChange state) { FinishStroke(); DestroyRayCollider(); brushEnabled = false; Repaint(); }
     void OnUndoRedo() { positions = null; colors = null; SceneView.RepaintAll(); Repaint(); }
     MeshFilter Filter => target != null ? target.GetComponent<MeshFilter>() : null;
     MeshCollider Collider => target != null ? target.GetComponent<MeshCollider>() : null;
     string Problem() {
         if (EditorApplication.isPlayingOrWillChangePlaymode) return "Painting is available only outside Play mode.";
-        if (target == null) return "Choose a scene object with SoilSurface.";
+        if (target == null) return "Choose a scene object with SoilManager.";
         if (EditorUtility.IsPersistent(target) || !target.gameObject.scene.IsValid()) return "Choose a scene instance, not a prefab asset.";
         if (Filter == null || Filter.sharedMesh == null) return "The target needs a MeshFilter with a mesh.";
         if (!Filter.sharedMesh.isReadable) return "Enable Read/Write in the mesh import settings.";
-        if (Collider == null || Collider.convex || !Collider.enabled || !target.gameObject.activeInHierarchy)
-            return "The target needs an enabled, non-convex MeshCollider on the same active object.";
+        if (Collider == null || Collider.convex)
+            return "The target needs a non-convex MeshCollider on the same object. Inactive placement soil is supported.";
         return null;
     }
     bool Ready => Problem() == null && editableMesh != null && Filter.sharedMesh == editableMesh
@@ -52,28 +55,29 @@ public sealed class SoilScenePainter : EditorWindow {
 
     void OnGUI() {
         EditorGUI.BeginChangeCheck();
-        SoilSurface chosen = (SoilSurface)EditorGUILayout.ObjectField("Soil target", target, typeof(SoilSurface), true);
+        SoilManager chosen = (SoilManager)EditorGUILayout.ObjectField("Soil target", target, typeof(SoilManager), true);
         if (EditorGUI.EndChangeCheck()) {
-            FinishStroke(); target = chosen; editableMesh = null; brushEnabled = false;
+            FinishStroke(); DestroyRayCollider(); target = chosen; editableMesh = null; brushEnabled = false;
         }
-        if (GUILayout.Button("Use Selected SoilSurface")) {
-            FinishStroke(); target = Selection.activeGameObject != null
-                ? Selection.activeGameObject.GetComponent<SoilSurface>() : null;
+        if (GUILayout.Button("Use Selected SoilManager")) {
+            FinishStroke(); DestroyRayCollider(); target = Selection.activeGameObject != null
+                ? Selection.activeGameObject.GetComponent<SoilManager>() : null;
             editableMesh = null; brushEnabled = false;
         }
         string problem = Problem();
         if (problem != null) EditorGUILayout.HelpBox(problem, MessageType.Info);
         using (new EditorGUI.DisabledScope(problem != null)) {
             if (GUILayout.Button("Create Editable Mesh Copy…")) CreateCopy();
+            if (GUILayout.Button("Use Existing Assigned Mesh Asset")) UseExisting();
         }
-        EditorGUILayout.HelpBox("Create a separate mesh asset before painting. It is assigned to this object's renderer and collider; Preserve Existing Colors is enabled automatically.", MessageType.Info);
+        EditorGUILayout.HelpBox("Create a separate mesh asset before painting. It is assigned to this object's renderer and collider; Existing RGB colors are preserved. SoilManager reads the saved asset as its runtime baseline.", MessageType.Info);
         using (new EditorGUI.DisabledScope(!Ready)) {
             brushEnabled = EditorGUILayout.Toggle("Enable Scene Brush", brushEnabled);
-            channel = (SoilChannel)EditorGUILayout.EnumPopup("Channel", channel);
-            mode = (SoilPaintMode)EditorGUILayout.EnumPopup("Mode", mode);
+            channel = (SoilPainter.Channel)EditorGUILayout.EnumPopup("Channel", channel);
+            mode = (SoilPainter.PaintMode)EditorGUILayout.EnumPopup("Mode", mode);
             radius = Mathf.Max(.001f, EditorGUILayout.FloatField("Radius (world units)", radius));
-            value = EditorGUILayout.Slider(mode == SoilPaintMode.Set ? "Target value" : "Signed amount", value,
-                mode == SoilPaintMode.Set ? 0 : -1, 1);
+            value = EditorGUILayout.Slider(mode == SoilPainter.PaintMode.Set ? "Target value" : "Signed amount", value,
+                mode == SoilPainter.PaintMode.Set ? 0 : -1, 1);
             strength = EditorGUILayout.Slider("Strength per dab", strength, .001f, 1);
             falloff = EditorGUILayout.Slider("Falloff power", falloff, .1f, 8);
             EditorGUILayout.Space();
@@ -97,14 +101,14 @@ public sealed class SoilScenePainter : EditorWindow {
         }
         Mesh copy = Instantiate(Filter.sharedMesh); copy.name = System.IO.Path.GetFileNameWithoutExtension(path);
         Color[] c = copy.colors;
-        if (!target.preserveExistingColors || c.Length != copy.vertexCount) {
+        if (c.Length != copy.vertexCount) {
             c = new Color[copy.vertexCount];
-            for (int i = 0; i < c.Length; i++) c[i] = Clamp(target.initialValues);
+            for (int i = 0; i < c.Length; i++) c[i] = Clamp(DefaultSoil());
         } else for (int i = 0; i < c.Length; i++) c[i] = Clamp(c[i]);
         copy.colors = c;
         AssetDatabase.CreateAsset(copy, path);
         Undo.RegisterCompleteObjectUndo(new Object[] { Filter, Collider, target }, "Assign soil mesh copy");
-        Filter.sharedMesh = copy; Collider.sharedMesh = copy; target.preserveExistingColors = true;
+        Filter.sharedMesh = copy; Collider.sharedMesh = copy;
         PrefabUtility.RecordPrefabInstancePropertyModifications(Filter);
         PrefabUtility.RecordPrefabInstancePropertyModifications(Collider);
         PrefabUtility.RecordPrefabInstancePropertyModifications(target);
@@ -112,6 +116,54 @@ public sealed class SoilScenePainter : EditorWindow {
         EditorSceneManager.MarkSceneDirty(target.gameObject.scene);
         editableMesh = copy; positions = null; colors = null;
         AssetDatabase.SaveAssets(); SceneView.RepaintAll();
+    }
+    Color DefaultSoil()
+    {
+        SerializedObject serialized = new SerializedObject(target);
+        return serialized.FindProperty("defaultSoil").colorValue;
+    }
+    void UseExisting()
+    {
+        FinishStroke();
+        Mesh mesh = Filter.sharedMesh;
+        string path = AssetDatabase.GetAssetPath(mesh);
+        if (!path.EndsWith(".asset") || AssetDatabase.IsSubAsset(mesh))
+        {
+            EditorUtility.DisplayDialog("Soil mesh", "Select a standalone .asset mesh, or create an editable copy first.", "OK");
+            return;
+        }
+        Undo.RecordObject(Collider, "Assign soil baseline collider");
+        Collider.sharedMesh = mesh;
+        PrefabUtility.RecordPrefabInstancePropertyModifications(Collider);
+        EditorUtility.SetDirty(Collider);
+        EditorSceneManager.MarkSceneDirty(target.gameObject.scene);
+        editableMesh = mesh; positions = null; colors = null;
+        // Initialize missing colors explicitly with Undo; never replace existing colors.
+        if (mesh.colors.Length != mesh.vertexCount)
+        {
+            Undo.RegisterCompleteObjectUndo(mesh, "Initialize soil colors");
+            Color[] initial = new Color[mesh.vertexCount];
+            for (int i=0;i<initial.Length;i++) initial[i] = Clamp(DefaultSoil());
+            mesh.colors = initial; EditorUtility.SetDirty(mesh);
+        }
+    }
+    void UpdateRayCollider()
+    {
+        if (rayObject == null)
+        {
+            rayObject = new GameObject("Soil Editor Ray Surface");
+            rayObject.hideFlags = HideFlags.HideAndDontSave;
+            rayObject.layer = 2;
+            rayCollider = rayObject.AddComponent<MeshCollider>();
+        }
+        rayObject.transform.SetPositionAndRotation(target.transform.position, target.transform.rotation);
+        rayObject.transform.localScale = target.transform.lossyScale;
+        if (rayCollider.sharedMesh != editableMesh) rayCollider.sharedMesh = editableMesh;
+    }
+    void DestroyRayCollider()
+    {
+        if (rayObject != null) DestroyImmediate(rayObject);
+        rayObject = null; rayCollider = null;
     }
     static Color Clamp(Color c) => new Color(Mathf.Clamp01(c.r),Mathf.Clamp01(c.g),Mathf.Clamp01(c.b),1);
     void Cache() {
@@ -149,7 +201,7 @@ public sealed class SoilScenePainter : EditorWindow {
             if (d >= radius) continue;
             float w = strength * Mathf.Pow(1-d/radius, falloff);
             Color c = colors[i];
-            c[cIndex] = mode == SoilPaintMode.Set ? Mathf.Lerp(c[cIndex], desired, w)
+            c[cIndex] = mode == SoilPainter.PaintMode.Set ? Mathf.Lerp(c[cIndex], desired, w)
                 : Mathf.Clamp01(c[cIndex] + amount*w);
             colors[i] = c;
         }
@@ -166,9 +218,11 @@ public sealed class SoilScenePainter : EditorWindow {
         Physics.SyncTransforms();
         Ray ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
         // Paint only this selected collider, even if another object overlaps it.
-        if (!Collider.Raycast(ray, out RaycastHit hit, 10000)) { hasLastPoint = false; return; }
+        UpdateRayCollider();
+        Physics.SyncTransforms();
+        if (!rayCollider.Raycast(ray, out RaycastHit hit, 10000)) { hasLastPoint = false; return; }
         if (e.type == EventType.Repaint) {
-            Handles.color = channel == SoilChannel.Roughness ? Color.red : channel == SoilChannel.Nutrients ? Color.green : Color.blue;
+            Handles.color = channel == SoilPainter.Channel.Roughness ? Color.red : channel == SoilPainter.Channel.Nutrients ? Color.green : Color.blue;
             Handles.DrawWireDisc(hit.point, hit.normal, radius);
             Handles.DrawLine(hit.point, hit.point + hit.normal * radius * .2f);
         }

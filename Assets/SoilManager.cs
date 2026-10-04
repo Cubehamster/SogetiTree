@@ -31,6 +31,8 @@ public sealed class SoilManager : MonoBehaviour
         public float NutrientsReceived { get; internal set; }
     }
 
+    // Moving purchased items queue their contributions here, before the shared upload.
+    public event Action<float> TickStarting;
     public event Action<float> TickCompleted;
     public Mesh BaselineMesh => originalMesh;
     public int VertexCount => soil == null ? 0 : soil.Length;
@@ -46,7 +48,7 @@ public sealed class SoilManager : MonoBehaviour
     private Vector3[] sourceAdditions;
     private readonly List<RootInfluence> roots = new List<RootInfluence>();
     private double lastTickTime;
-    private bool ticking;
+    private bool ticking, preparingTick;
 
     private void Awake() { Initialize(); }
     private void OnEnable() { lastTickTime = Time.timeAsDouble; }
@@ -116,11 +118,8 @@ public sealed class SoilManager : MonoBehaviour
                 Mathf.Max(0.01f, falloffPower));
             indices.Add(i); weights.Add(weight); total += weight;
         }
-        return new RootInfluence
-        {
-            owner = this,
-            indices = indices.ToArray(),
-            weights = weights.ToArray(),
+        return new RootInfluence {
+            owner = this, indices = indices.ToArray(), weights = weights.ToArray(),
             totalWeight = total
         };
     }
@@ -258,9 +257,83 @@ public sealed class SoilManager : MonoBehaviour
         return RegisterSource(center, radius, rgbPerSecond, falloffPower);
     }
 
+    // Rates are TOTAL absolute RGB units/second across the affected area.
+    // Falloff distributes that budget; adding vertices or increasing radius never
+    // multiplies the total effect. All requests read the same pre-tick snapshot.
+    public int QueueAreaEffect(Vector3 center, float radius, SoilAreaItem.EffectKind kind,
+        float elapsedSeconds, float waterRate, float nutrientRate, float roughnessRate)
+    {
+        if (!Initialize() || radius <= 0f || elapsedSeconds <= 0f) return 0;
+        float radiusSquared = radius * radius;
+        double nutrientSum = 0d;
+        float totalWeight = 0f;
+        int count = 0;
+        for (int i = 0; i < soil.Length; i++)
+        {
+            float distanceSquared = (worldVertices[i] - center).sqrMagnitude;
+            if (distanceSquared >= radiusSquared) continue;
+            totalWeight += 1f - Mathf.Sqrt(distanceSquared) / radius;
+            nutrientSum += soil[i].g;
+            count++;
+        }
+        if (count == 0 || totalWeight <= 0f) return 0;
+        float averageNutrients = (float)(nutrientSum / count);
+        float waterBudget = Mathf.Max(0f, waterRate) * elapsedSeconds;
+        float nutrientBudget = Mathf.Max(0f, nutrientRate) * elapsedSeconds;
+        float roughnessBudget = Mathf.Max(0f, roughnessRate) * elapsedSeconds;
+        float nutrientBlend = 0f, roughnessBlend = 0f;
+        if (kind == SoilAreaItem.EffectKind.Raincloud)
+        {
+            float nutrientError = 0f, weightedRoughnessError = 0f;
+            for (int i = 0; i < soil.Length; i++)
+            {
+                float distanceSquared = (worldVertices[i] - center).sqrMagnitude;
+                if (distanceSquared >= radiusSquared) continue;
+                float weight = 1f - Mathf.Sqrt(distanceSquared) / radius;
+                nutrientError += Mathf.Abs(averageNutrients - soil[i].g);
+                weightedRoughnessError += Mathf.Abs(0.5f - soil[i].r) * weight;
+            }
+            // Common blend keeps the unweighted nutrient average conserved.
+            // Nutrient budget counts the absolute changes on both donor and recipient.
+            nutrientBlend = nutrientError > 0f ? Mathf.Min(1f, nutrientBudget / nutrientError) : 0f;
+            roughnessBlend = weightedRoughnessError > 0f
+                ? Mathf.Min(1f, roughnessBudget / weightedRoughnessError) : 0f;
+        }
+        for (int i = 0; i < soil.Length; i++)
+        {
+            float distanceSquared = (worldVertices[i] - center).sqrMagnitude;
+            if (distanceSquared >= radiusSquared) continue;
+            float weight = 1f - Mathf.Sqrt(distanceSquared) / radius;
+            float share = weight / totalWeight;
+            Color c = soil[i];
+            Vector3 delta = Vector3.zero;
+            switch (kind)
+            {
+                case SoilAreaItem.EffectKind.Raincloud:
+                    delta.z = waterBudget * share;
+                    delta.y = (averageNutrients - c.g) * nutrientBlend; // No distance falloff.
+                    delta.x = (0.5f - c.r) * weight * roughnessBlend;
+                    break;
+                case SoilAreaItem.EffectKind.Wind:
+                    // Wet soil resists erosion; do not redistribute that unused budget.
+                    delta.x = roughnessBudget * share * (1f - c.b);
+                    delta.y = -nutrientBudget * share;
+                    break;
+                case SoilAreaItem.EffectKind.Sunlight:
+                    delta.z = -waterBudget * share;
+                    break;
+            }
+            pendingChanges[i] += delta;
+        }
+        return count;
+    }
+
     public void SimulateTick(float elapsedSeconds)
     {
-        if (ticking || elapsedSeconds <= 0f || !Initialize()) return;
+        if (ticking || preparingTick || elapsedSeconds <= 0f || !Initialize()) return;
+        preparingTick = true;
+        try { TickStarting?.Invoke(elapsedSeconds); }
+        finally { preparingTick = false; }
         ticking = true;
         try
         {

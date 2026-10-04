@@ -24,7 +24,11 @@ public sealed class TreePlanter : MonoBehaviour
     [SerializeField] private DecalProjector previewDecal;
     [Tooltip("Shader Graph color property's Reference name, not its display name.")]
     [SerializeField] private string decalColorProperty = "_BaseColor";
+    [SerializeField] private TreeState treeState;
+    [Tooltip("Fallback radius only when no TreeState is available.")]
     [SerializeField, Min(0.01f)] private float sampleRadius = 0.5f;
+    public float SampleRadius => treeState != null ? treeState.RootRadius : sampleRadius;
+    public float SampleFalloff => treeState != null ? treeState.RootFalloff : falloffPower;
     [SerializeField, Min(1f)] private float previewTicksPerSecond = 10f;
     [SerializeField, Min(0.01f)] private float falloffPower = 2f;
 
@@ -46,6 +50,15 @@ public sealed class TreePlanter : MonoBehaviour
     private float elapsed;
     private Vector3 startPosition, targetPosition;
 
+    public void ResetForSpawn()
+    {
+        releasePending = false;
+        snapping = false;
+        IsPlanted = false;
+        RestorePhysics();
+        HidePreview();
+    }
+
     public void SetSoilManager(SoilManager manager)
     {
         soilManager = manager;
@@ -59,6 +72,7 @@ public sealed class TreePlanter : MonoBehaviour
 
     private void Awake()
     {
+        if (treeState == null) treeState = GetComponentInParent<TreeState>();
         if (grabbable == null) grabbable = GetComponent<Grabbable>();
         if (grabbable == null)
         {
@@ -223,8 +237,8 @@ public sealed class TreePlanter : MonoBehaviour
 
         // Read authoritative cached RGB values. No mesh color reads or
         // per-tree vertex caches/material copies are performed here.
-        return manager.TrySampleRadius(hit.point, sampleRadius,
-            out average, falloffPower);
+        return manager.TrySampleRadius(hit.point, SampleRadius,
+            out average, SampleFalloff);
     }
 
     private void SetDecalVisible(bool visible)
@@ -264,7 +278,7 @@ public sealed class TreePlanter : MonoBehaviour
         if (Application.isPlaying && CanPlant)
         {
             Gizmos.color = HasSoilSample ? AverageColor : Color.yellow;
-            Gizmos.DrawWireSphere(PreviewHitPoint, sampleRadius);
+            Gizmos.DrawWireSphere(PreviewHitPoint, SampleRadius);
         }
         Gizmos.color = old;
     }

@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Summer_TreeRoots Summer
   m_Shader: {fileID: 4800000, guid: ed55c0d7a1edbdc4aa6dad7dc79672cf, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _MASKMAGIC_ON
   - _MASKMAPCHANNEL_G
@@ -23,6 +25,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -67,6 +70,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emmision:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -220,11 +227,13 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color0: {r: 16.94838, g: 16.94838, b: 16.94838, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emmision_Color: {r: 0, g: 0, b: 0, a: 0}
     - _GradientShift: {r: 1, g: 1, b: 0, a: 0}
     - _Gradientshift: {r: 0.1, g: 1.01, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &3862037790797161308
 MonoBehaviour:
   m_ObjectHideFlags: 11

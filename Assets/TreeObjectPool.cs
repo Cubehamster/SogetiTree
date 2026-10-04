@@ -54,6 +54,7 @@ public sealed class TreeObjectPool : MonoBehaviour
         // Includes inactive child components; does not reach into the new parent.
         foreach (TreeState state in instance.GetComponentsInChildren<TreeState>(true))
         {
+            state.SetObjectPool(this, instance);
             state.SetSoilManager(soilManager);
             state.SetTreeManager(managerOverride != null ? managerOverride : treeManager);
             // Scene pool references cannot be stored on a prefab asset.
@@ -85,6 +86,8 @@ public sealed class TreeObjectPool : MonoBehaviour
         instance.SetActive(true);
         return instance;
     }
+
+    public bool IsBorrowed(GameObject instance) => instance != null && borrowed.Contains(instance);
 
     public void Return(GameObject instance)
     {

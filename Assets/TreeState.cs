@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -20,18 +21,20 @@ public sealed class TreeState : MonoBehaviour
         [Tooltip("X roughness, Y nutrients, Z water. Positive adds, negative removes. Total units/second.")]
         public Vector3 aliveSoilRates = new Vector3(-0.005f, -0.01f, -0.02f);
         public Vector3 deadSoilRates = new Vector3(0f, 0.005f, 0f);
-        [Header("Growth requirements — alpha ignored")]
+        [Header("Growth requirements â€” alpha ignored")]
         public Color minimumSoil = new Color(0f, 0.2f, 0.2f, 1f);
         public Color maximumSoil = new Color(0.7f, 1f, 0.9f, 1f);
         [Min(0f)] public float growthPerSecond = 1f;
+        [Min(0)] public int pointsPerGrowth = 1;
         [Min(0.01f)] public float growthToNextStage = 60f;
         [Header("Neighbour competition")]
-        [Min(0f)] public float neighbourRadius = 2f;
         [Min(0f)] public float blockedGrowthPenalty = 10f;
         [Min(0f)] public float blockedHealthPenalty = 10f;
         [Header("Health")]
         [Min(0.01f)] public float maximumHealth = 100f;
         [Min(0f)] public float healthLossPerSecond = 1f;
+        [Tooltip("Dead trees lose health at this rate regardless of soil quality.")]
+        [Min(0f)] public float deadHealthLossPerSecond = 1f;
         [Min(0f)] public float healthRecoveryPerSecond = 0f;
         [Tooltip("Health granted when entering this stage through growth.")]
         [Min(0f)] public float healthGainOnEntry = 20f;
@@ -61,12 +64,29 @@ public sealed class TreeState : MonoBehaviour
     [SerializeField] private BoxCollider grabCollider;
     [SerializeField] private Transform grabbableTransform;
     [SerializeField] private DecalProjector decalProjector;
+    [Header("Big tree seed production")]
+    [Tooltip("Automatically assigned by the TreeObjectPool that supplies this tree.")]
+    [SerializeField] private TreeObjectPool objectPool;
+    [SerializeField] private Transform seedSpawnPoint;
+    [SerializeField, Min(0f)] private float seedSpawnHeight = 0.5f;
+    [SerializeField, Min(0f)] private float seedSpawnRadius = 0.5f;
+    [SerializeField, Min(0f)] private float seedHealthCost = 25f;
+    [Tooltip("Optional explicit grab behaviours to disable for Big trees. Empty discovers Meta grab components automatically. Do not include TreePlanter.")]
+    [SerializeField] private Behaviour[] grabBehaviours = new Behaviour[0];
+    private readonly Dictionary<Behaviour, bool> stageBehaviourDefaults = new Dictionary<Behaviour, bool>();
+    private bool stageBehavioursCached;
+    private GameObject pooledTreeObject;
+
     [Header("Stage settings")]
-    [SerializeField] private StageSettings bigCollider = new StageSettings();
-    [SerializeField] private StageSettings smallCollider = new StageSettings();
-    [SerializeField] private StageSettings saplingCollider = new StageSettings();
+    [SerializeField] private StageSettings bigCollider = new StageSettings { pointsPerGrowth = 15 };
+    [SerializeField] private StageSettings smallCollider = new StageSettings { pointsPerGrowth = 5 };
+    [SerializeField] private StageSettings saplingCollider = new StageSettings { pointsPerGrowth = 2 };
     [SerializeField] private StageSettings seedCollider = new StageSettings();
 
+    // Total signed RGB units/second used by a living Big tree.
+    public Vector3 BigTreeSoilRates => bigCollider.aliveSoilRates;
+    public float RootRadius => GetSettings(stage).rootRadius;
+    public float RootFalloff => GetSettings(stage).rootFalloff;
     public Color MinimumSoil => GetSettings(stage).minimumSoil;
     public Color MaximumSoil => GetSettings(stage).maximumSoil;
     public bool TryGetCurrentSoil(out Color color)
@@ -76,6 +96,7 @@ public sealed class TreeState : MonoBehaviour
             && soilManager.TrySample(influence, out color);
     }
 
+    public GameObject CurrentVisual => currentVisual;
     public GrowthStage Stage => stage;
     public bool IsAlive => isAlive;
     public float Growth => growth;
@@ -90,6 +111,7 @@ public sealed class TreeState : MonoBehaviour
     private GrowthStage displayedStage;
     private SoilManager.RootInfluence influence;
     private bool registrationAttempted;
+    private double growthPointRemainder;
     private SoilManager subscribedManager;
     public bool IsPlanted => treePlanter != null ? treePlanter.IsPlanted : plantedWithoutPlanter;
 
@@ -111,6 +133,12 @@ public sealed class TreeState : MonoBehaviour
         RefreshVisual();
         subscribedManager = soilManager;
         if (subscribedManager != null) subscribedManager.TickCompleted += OnSoilTick;
+    }
+
+    public void SetObjectPool(TreeObjectPool pool, GameObject instance = null)
+    {
+        objectPool = pool;
+        pooledTreeObject = instance != null ? instance : gameObject;
     }
 
     public void SetTreeManager(TreeManager manager)
@@ -151,7 +179,7 @@ public sealed class TreeState : MonoBehaviour
 
     private void SyncRegistration()
     {
-        if (!IsPlanted)
+        if (!IsPlanted || (treeManager != null && !treeManager.IsGameRunning))
         {
             UnregisterRoots();
             registrationAttempted = false;
@@ -182,6 +210,19 @@ public sealed class TreeState : MonoBehaviour
         influence = null;
     }
 
+    public void ResetAsSeed()
+    {
+        growthPointRemainder = 0;
+        growth = 0f;
+        plantedWithoutPlanter = false;
+        if (treePlanter != null) treePlanter.ResetForSpawn();
+        SetStage(GrowthStage.Seed);
+        isAlive = true;
+        health = seedCollider.maximumHealth;
+        ApplyAliveState();
+        RefreshRootInfluence();
+    }
+
     public void SetPlanted(bool planted)
     {
         plantedWithoutPlanter = planted;
@@ -190,12 +231,17 @@ public sealed class TreeState : MonoBehaviour
 
     private void OnSoilTick(float elapsedSeconds)
     {
-        if (!IsPlanted || influence == null) return;
+        if (!isActiveAndEnabled || !IsPlanted || influence == null || (treeManager != null && !treeManager.IsGameRunning)) return;
         LastSoil = influence.SoilBeforeTick;
         StageSettings settings = GetSettings(stage);
         if (settings == null) return;
         MeetsGrowthRequirements = MeetsBounds(LastSoil, settings.minimumSoil, settings.maximumSoil);
-        if (!isAlive) return;
+        if (!isAlive)
+        {
+            health -= settings.deadHealthLossPerSecond * elapsedSeconds;
+            TryReturnDecomposedTree(settings);
+            return;
+        }
         if (!MeetsGrowthRequirements)
         {
             health -= settings.healthLossPerSecond * elapsedSeconds;
@@ -204,12 +250,29 @@ public sealed class TreeState : MonoBehaviour
         }
         health = Mathf.Min(settings.maximumHealth,
             health + settings.healthRecoveryPerSecond * elapsedSeconds);
-        // Big is the final stage; it still checks soil and can lose health.
-        if (stage == GrowthStage.Big) return;
-        growth += settings.growthPerSecond * elapsedSeconds;
+        float gained = settings.growthPerSecond * elapsedSeconds;
+        growth += gained;
+        growthPointRemainder += gained * settings.pointsPerGrowth;
+        int earned = (int)Math.Min(int.MaxValue, Math.Floor(growthPointRemainder));
+        if (earned > 0 && treeManager != null)
+        {
+            treeManager.AddPoints(earned);
+            growthPointRemainder -= earned;
+        }
+        // Big produces one seed per threshold; it never advances further.
+        if (stage == GrowthStage.Big)
+        {
+            if (growth >= Mathf.Max(0.01f, settings.growthToNextStage) && TryProduceSeed())
+            {
+                growth = 0f;
+                health -= seedHealthCost;
+                if (health < 0f) SetAlive(false);
+            }
+            return;
+        }
         if (growth >= Mathf.Max(0.01f, settings.growthToNextStage))
         {
-            if (treeManager != null && treeManager.HasLargerNeighbour(this, settings.neighbourRadius))
+            if (treeManager != null && treeManager.HasLargerNeighbour(this, settings.rootRadius * 0.5f))
             {
                 // Subtract the configured penalty; retry on a later tick at the threshold.
                 growth = Mathf.Max(0f, growth - settings.blockedGrowthPenalty);
@@ -219,6 +282,73 @@ public sealed class TreeState : MonoBehaviour
             }
             SetStage((GrowthStage)((int)stage + 1));
         }
+    }
+
+    private void TryReturnDecomposedTree(StageSettings settings)
+    {
+        if (isAlive || health >= -Mathf.Max(0.01f, settings.growthToNextStage)) return;
+        // Remove nutrient contribution before returning the complete tree prefab.
+        UnregisterRoots();
+        GameObject instance = pooledTreeObject != null ? pooledTreeObject : gameObject;
+        if (treeManager != null && treeManager.ReturnTree(instance)) return;
+        if (objectPool != null && objectPool.IsBorrowed(instance)) objectPool.Return(instance);
+        else instance.SetActive(false); // A manually placed scene tree has no borrowed pool entry.
+    }
+
+    private bool TryProduceSeed()
+    {
+        if (objectPool == null) return false;
+        Vector3 position = seedSpawnPoint != null ? seedSpawnPoint.position : transform.position;
+        if (seedSpawnPoint == null && currentVisual != null)
+        {
+            foreach (Renderer renderer in currentVisual.GetComponentsInChildren<Renderer>())
+                position.y = Mathf.Max(position.y, renderer.bounds.max.y);
+        }
+        Vector2 spread = UnityEngine.Random.insideUnitCircle * seedSpawnRadius;
+        position += new Vector3(spread.x, seedSpawnHeight, spread.y);
+        GameObject seed = treeManager != null
+            ? treeManager.SpawnTree(objectPool, position, Quaternion.identity)
+            : objectPool.Get(position, Quaternion.identity);
+        if (seed == null) return false;
+        TreeState state = seed.GetComponentInChildren<TreeState>(true);
+        if (state == null)
+        {
+            if (treeManager != null) treeManager.ReturnTree(seed);
+            else objectPool.Return(seed);
+            Debug.LogError("TreeState: seed pool prefab requires TreeState.", this);
+            return false;
+        }
+        state.ResetAsSeed();
+        return true;
+    }
+
+    private void ApplyStageAvailability()
+    {
+        if (!stageBehavioursCached)
+        {
+            stageBehavioursCached = true;
+            if (grabBehaviours == null || grabBehaviours.Length == 0)
+            {
+                var found = new List<Behaviour>();
+                foreach (Behaviour behaviour in GetComponentsInChildren<Behaviour>(true))
+                {
+                    if (behaviour == null) continue;
+                    // Covers the optional Meta grab variants without requiring all of them to be installed.
+                    string name = behaviour.GetType().Name;
+                    if (name == "Grabbable" || name == "GrabInteractable" ||
+                        name == "HandGrabInteractable" || name == "DistanceGrabInteractable" ||
+                        name == "DistanceHandGrabInteractable") found.Add(behaviour);
+                }
+                grabBehaviours = found.ToArray();
+            }
+            foreach (Behaviour behaviour in grabBehaviours)
+                if (behaviour != null && behaviour != this && behaviour != treePlanter)
+                    stageBehaviourDefaults[behaviour] = behaviour.enabled;
+            foreach (TreeSoilDisplay display in GetComponentsInChildren<TreeSoilDisplay>(true))
+                stageBehaviourDefaults[display] = display.enabled;
+        }
+        foreach (var entry in stageBehaviourDefaults)
+            if (entry.Key != null) entry.Key.enabled = stage != GrowthStage.Big && entry.Value;
     }
 
     private static bool MeetsBounds(Color value, Color lower, Color upper)
@@ -254,6 +384,7 @@ public sealed class TreeState : MonoBehaviour
         ApplyAliveState();
         if (soilManager != null && influence != null && settings != null)
             soilManager.SetSourceRates(influence, alive ? settings.aliveSoilRates : settings.deadSoilRates);
+        if (!alive && settings != null) TryReturnDecomposedTree(settings);
     }
     public void MakeAlive() => SetAlive(true);
     public void MakeDead() => SetAlive(false);
@@ -272,6 +403,7 @@ public sealed class TreeState : MonoBehaviour
 
     private void ApplyStageSettings()
     {
+        ApplyStageAvailability();
         StageSettings settings = GetSettings(stage);
         if (settings == null) return;
         if (grabbableTransform != null) grabbableTransform.localScale = settings.localScale;

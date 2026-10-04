@@ -21,7 +21,10 @@ public sealed class TreeSoilDisplay : MonoBehaviour
 
     [SerializeField] private TreePlanter treePlanter;
     [SerializeField] private TreeState treeState;
-    [Tooltip("Optional world-position anchor above the tree.")]
+    [Header("Display position")]
+    [SerializeField] private bool followVisualTop = true;
+    [SerializeField, Min(0f)] private float gapAboveVisual = 0.1f;
+    [Tooltip("Used only when Follow Visual Top is disabled.")]
     [SerializeField] private Transform anchor;
     [SerializeField] private Vector3 worldOffset = new Vector3(0f, 1.5f, 0f);
     [SerializeField, Min(0.01f)] private float cubeSize = 0.3f;
@@ -47,6 +50,8 @@ public sealed class TreeSoilDisplay : MonoBehaviour
     private Color lastMinimum, lastMaximum;
     private float yaw;
     private bool built;
+    private GameObject cachedTreeVisual;
+    private Renderer[] treeRenderers = new Renderer[0];
     private readonly List<Vector3> vertices = new List<Vector3>();
     private readonly List<Color> colors = new List<Color>();
     private readonly List<int> triangles = new List<int>();
@@ -126,7 +131,7 @@ public sealed class TreeSoilDisplay : MonoBehaviour
         yaw = Mathf.Repeat(yaw + rotationDegreesPerSecond * Time.deltaTime, 360f);
         visualRoot.transform.SetPositionAndRotation(
             externalInput ? externalPosition :
-            (anchor != null ? anchor.position : transform.position) + worldOffset,
+            GetTreeDisplayPosition(),
             Quaternion.Euler(0f, yaw, 0f));
         // Compensate parent growth scale. Uniform parent scales are recommended.
         Vector3 scale = transform.lossyScale;
@@ -140,6 +145,34 @@ public sealed class TreeSoilDisplay : MonoBehaviour
         dotRenderer.SetPropertyBlock(dotProperties);
         displayStatus = "Visible — " + (IsInsideRequirements ? "soil in range" : "soil outside requirements");
         visualRoot.SetActive(true);
+    }
+
+    private Vector3 GetTreeDisplayPosition()
+    {
+        if (!followVisualTop || treeState == null)
+            return (anchor != null ? anchor.position : transform.position) + worldOffset;
+        GameObject current = treeState.CurrentVisual;
+        if (current != cachedTreeVisual)
+        {
+            cachedTreeVisual = current;
+            // Cache renderer references when the pooled growth-stage visual changes.
+            treeRenderers = current != null ? current.GetComponentsInChildren<Renderer>(true) : new Renderer[0];
+        }
+        bool found = false;
+        Bounds bounds = default;
+        foreach (Renderer renderer in treeRenderers)
+        {
+            // Mesh bounds only; do not include the soil UI, decals or particles.
+            if (renderer == null || (!(renderer is MeshRenderer) && !(renderer is SkinnedMeshRenderer))) continue;
+            if (!found) { bounds = renderer.bounds; found = true; }
+            else bounds.Encapsulate(renderer.bounds);
+        }
+        Vector3 position = found ? new Vector3(bounds.center.x, bounds.max.y, bounds.center.z) : treeState.Location;
+        // Raise the bottom of the upright cube clear of the visual, not just its centre.
+        position.y += gapAboveVisual + cubeSize * 0.5f;
+        position.x += worldOffset.x;
+        position.z += worldOffset.z;
+        return position;
     }
 
     private Vector3 Position(Color c) =>

@@ -12,6 +12,7 @@ public sealed class TreeMeshPool : MonoBehaviour
 
     private readonly Queue<GameObject> available = new Queue<GameObject>();
     private readonly HashSet<GameObject> borrowed = new HashSet<GameObject>();
+    private readonly Queue<GameObject> pendingReturns = new Queue<GameObject>();
     private Transform storage;
     private bool initialized;
 
@@ -73,9 +74,21 @@ public sealed class TreeMeshPool : MonoBehaviour
     public void Return(GameObject instance)
     {
         if (instance == null || !borrowed.Remove(instance)) return;
+        // Return may be called by TreeState.OnDisable while its parent is
+        // transitioning activation. Reparent only after that callback completes.
         instance.SetActive(false);
-        instance.transform.SetParent(storage, false);
-        available.Enqueue(instance);
+        pendingReturns.Enqueue(instance);
+    }
+
+    private void LateUpdate()
+    {
+        while (pendingReturns.Count > 0)
+        {
+            GameObject instance = pendingReturns.Dequeue();
+            if (instance == null) continue;
+            instance.transform.SetParent(storage, false);
+            available.Enqueue(instance);
+        }
     }
 
     // Optional runtime reassignment, including already borrowed objects.
@@ -86,6 +99,8 @@ public sealed class TreeMeshPool : MonoBehaviour
             if (instance != null) AssignSoilManager(instance);
         foreach (GameObject instance in borrowed)
             if (instance != null) AssignSoilManager(instance);
+        foreach (GameObject instance in pendingReturns)
+            if (instance != null) AssignSoilManager(instance);
     }
 
     private void OnDestroy()
@@ -93,5 +108,8 @@ public sealed class TreeMeshPool : MonoBehaviour
         foreach (GameObject instance in borrowed)
             if (instance != null) Destroy(instance);
         borrowed.Clear();
+        foreach (GameObject instance in pendingReturns)
+            if (instance != null) Destroy(instance);
+        pendingReturns.Clear();
     }
 }
