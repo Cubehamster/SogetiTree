@@ -1,6 +1,7 @@
 using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
 
 [DisallowMultipleComponent]
 public sealed class TreePlanter : MonoBehaviour
@@ -17,6 +18,25 @@ public sealed class TreePlanter : MonoBehaviour
     [SerializeField, Min(0f)] private float snapDuration = 0.3f;
     [SerializeField] private UnityEvent onPlanted = new UnityEvent();
 
+    [Header("Held tree soil preview")]
+    [Tooltip("Optional. Otherwise resolved from the hit collider or its parents.")]
+    [SerializeField] private SoilManager soilManager;
+    [SerializeField] private DecalProjector previewDecal;
+    [Tooltip("Shader Graph color property's Reference name, not its display name.")]
+    [SerializeField] private string decalColorProperty = "_BaseColor";
+    [SerializeField, Min(0.01f)] private float sampleRadius = 0.5f;
+    [SerializeField, Min(1f)] private float previewTicksPerSecond = 10f;
+    [SerializeField, Min(0.01f)] private float falloffPower = 2f;
+
+    public bool CanPlant { get; private set; }
+    public bool HasSoilSample { get; private set; }
+    public Color AverageColor { get; private set; }
+    public Vector3 PreviewHitPoint { get; private set; }
+
+    private Material originalDecalMaterial, decalMaterial;
+    private int colorPropertyId;
+    private float nextPreviewTime;
+
     public bool IsPlanted { get; private set; }
     public bool IsSnapping => snapping;
 
@@ -25,6 +45,11 @@ public sealed class TreePlanter : MonoBehaviour
     private bool previousKinematic, previousGravity;
     private float elapsed;
     private Vector3 startPosition, targetPosition;
+
+    public void SetSoilManager(SoilManager manager)
+    {
+        soilManager = manager;
+    }
 
     private void Reset()
     {
@@ -52,6 +77,19 @@ public sealed class TreePlanter : MonoBehaviour
     {
         // Meta initializes its target transform during Start.
         ResolveTree();
+        if (previewDecal == null)
+            previewDecal = treeTransform.GetComponentInChildren<DecalProjector>(true);
+        if (previewDecal != null && previewDecal.material != null)
+        {
+            originalDecalMaterial = previewDecal.material;
+            decalMaterial = new Material(originalDecalMaterial);
+            decalMaterial.name = originalDecalMaterial.name + " (Tree Preview)";
+            colorPropertyId = Shader.PropertyToID(decalColorProperty);
+            if (!decalMaterial.HasProperty(colorPropertyId))
+                Debug.LogWarning("TreePlanter: decal color Reference not found: " + decalColorProperty, this);
+            previewDecal.material = decalMaterial;
+        }
+        HidePreview();
     }
 
     private void ResolveTree()
@@ -68,6 +106,7 @@ public sealed class TreePlanter : MonoBehaviour
         if (evt.Type == PointerEventType.Select)
         {
             releasePending = false;
+            nextPreviewTime = 0f;
             snapping = false;
             IsPlanted = false;
             // Leave the Rigidbody kinematic while Meta holds it. Restore its
@@ -85,6 +124,14 @@ public sealed class TreePlanter : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (grabbable == null) return;
+        bool held = grabbable.GrabPoints.Count > 0;
+        if (held && !snapping && Time.time >= nextPreviewTime)
+        {
+            nextPreviewTime = Time.time + 1f / Mathf.Max(1f, previewTicksPerSecond);
+            UpdatePreview();
+        }
+        else if (!held) HidePreview();
         // Defer until Meta has completed release/throw handling.
         if (releasePending)
         {
@@ -111,65 +158,115 @@ public sealed class TreePlanter : MonoBehaviour
     private void TryPlant()
     {
         ResolveTree();
-
-        Vector3 rootPosition = rootPoint != null
-            ? rootPoint.position
-            : treeTransform.position;
-
-        Vector3 origin = rootPosition + Vector3.up * rayStartOffset;
-        float distance = rayDistance + rayStartOffset;
-
-        Debug.DrawRay(origin, Vector3.down * distance, Color.cyan, 3f);
-
-        if (!Physics.Raycast(
-                origin,
-                Vector3.down,
-                out RaycastHit hit,
-                distance,
-                TerrainMask,
-                QueryTriggerInteraction.Ignore))
-        {
-            Debug.Log(
-                $"[TreePlanter] No terrain hit. Origin: {origin}, " +
-                $"distance: {distance}. Ground must have a non-trigger " +
-                "collider on physics layer 3.",
-                this);
-            return;
-        }
-
-        float upright = Vector3.Dot(treeTransform.up, Vector3.up);
-
-        Debug.Log(
-            $"[TreePlanter] Hit {hit.collider.name} at {hit.point}. " +
-            $"Upright: {upright:F3} (must be > 0.7).",
-            this);
-
-        if (upright <= 0.7f)
-            return;
+        Vector3 rootPosition = rootPoint != null ? rootPoint.position : treeTransform.position;
+        if (!TryGetPlantHit(out RaycastHit hit)) return;
+        HidePreview();
 
         startPosition = treeTransform.position;
+        // Preserve rotation and place the root marker exactly on the hit point.
         targetPosition = startPosition + hit.point - rootPosition;
-
         if (treeRigidbody != null)
         {
             previousKinematic = treeRigidbody.isKinematic;
             previousGravity = treeRigidbody.useGravity;
             ownsPhysics = true;
-
             if (!treeRigidbody.isKinematic)
             {
                 treeRigidbody.linearVelocity = Vector3.zero;
                 treeRigidbody.angularVelocity = Vector3.zero;
             }
-
             treeRigidbody.useGravity = false;
             treeRigidbody.isKinematic = true;
         }
-
         elapsed = 0f;
         snapping = true;
+    }
 
-        Debug.Log($"[TreePlanter] Starting snap to {targetPosition}.", this);
+    private bool TryGetPlantHit(out RaycastHit hit)
+    {
+        ResolveTree();
+        Vector3 root = rootPoint != null ? rootPoint.position : treeTransform.position;
+        bool found = Physics.Raycast(root + Vector3.up * rayStartOffset,
+            Vector3.down, out hit, rayDistance + rayStartOffset,
+            TerrainMask, QueryTriggerInteraction.Ignore);
+        return found && Vector3.Dot(treeTransform.up, Vector3.up) > 0.7f;
+    }
+
+    private void UpdatePreview()
+    {
+        CanPlant = TryGetPlantHit(out RaycastHit hit);
+        HasSoilSample = false;
+        if (!CanPlant) { HidePreview(); return; }
+        PreviewHitPoint = hit.point;
+        HasSoilSample = TryAverageSoil(hit, out Color average);
+        if (!HasSoilSample) { SetDecalVisible(false); return; }
+        AverageColor = average;
+        if (decalMaterial != null && decalMaterial.HasProperty(colorPropertyId))
+        {
+            // Soil alpha is not data; preserve the material's original opacity.
+            average.a = originalDecalMaterial.GetColor(colorPropertyId).a;
+            decalMaterial.SetColor(colorPropertyId, average);
+        }
+        SetDecalVisible(decalMaterial != null && decalMaterial.HasProperty(colorPropertyId));
+    }
+
+    private bool TryAverageSoil(RaycastHit hit, out Color average)
+    {
+        average = default;
+        // Resolve the actual hit surface, so crossing between soil meshes
+        // doesn't accidentally sample the wrong manager.
+        SoilManager manager = hit.collider.GetComponentInParent<SoilManager>();
+        if (manager == null && soilManager != null &&
+            hit.collider.transform.IsChildOf(soilManager.transform))
+            manager = soilManager;
+        if (manager == null) return false;
+
+        // Read authoritative cached RGB values. No mesh color reads or
+        // per-tree vertex caches/material copies are performed here.
+        return manager.TrySampleRadius(hit.point, sampleRadius,
+            out average, falloffPower);
+    }
+
+    private void SetDecalVisible(bool visible)
+    {
+        if (previewDecal != null) previewDecal.enabled = visible;
+    }
+
+    private void HidePreview()
+    {
+        CanPlant = false;
+        HasSoilSample = false;
+        SetDecalVisible(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (previewDecal != null && previewDecal.material == decalMaterial)
+            previewDecal.material = originalDecalMaterial;
+        if (decalMaterial != null) Destroy(decalMaterial);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Transform target = treeTransform != null ? treeTransform : transform;
+        if (treeTransform == null && grabbable != null)
+            target = grabbable.Transform != null ? grabbable.Transform : grabbable.transform;
+        Vector3 root = rootPoint != null ? rootPoint.position : target.position;
+        Vector3 origin = root + Vector3.up * rayStartOffset;
+        Vector3 end = origin + Vector3.down * (rayDistance + rayStartOffset);
+        Color old = Gizmos.color;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(root, origin);
+        Gizmos.DrawWireSphere(origin, 0.025f);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(origin, end);
+        Gizmos.DrawWireSphere(end, 0.025f);
+        if (Application.isPlaying && CanPlant)
+        {
+            Gizmos.color = HasSoilSample ? AverageColor : Color.yellow;
+            Gizmos.DrawWireSphere(PreviewHitPoint, sampleRadius);
+        }
+        Gizmos.color = old;
     }
 
     private void RestorePhysics()
@@ -182,6 +279,7 @@ public sealed class TreePlanter : MonoBehaviour
 
     private void OnDisable()
     {
+        HidePreview();
         if (grabbable != null)
             grabbable.WhenPointerEventRaised -= HandlePointerEvent;
         releasePending = false;
@@ -189,37 +287,5 @@ public sealed class TreePlanter : MonoBehaviour
         IsPlanted = false;
         // Avoid overriding Meta's physics lock if disabled during a grab.
         if (grabbable == null || grabbable.GrabPoints.Count == 0) RestorePhysics();
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Transform target = treeTransform;
-
-        if (target == null && grabbable != null)
-            target = grabbable.Transform != null
-                ? grabbable.Transform
-                : grabbable.transform;
-
-        if (target == null)
-            target = transform;
-
-        Vector3 rootPosition = rootPoint != null
-            ? rootPoint.position
-            : target.position;
-
-        Vector3 origin = rootPosition + Vector3.up * rayStartOffset;
-        Vector3 end = origin + Vector3.down * (rayDistance + rayStartOffset);
-
-        Color previousColor = Gizmos.color;
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(rootPosition, origin);
-        Gizmos.DrawWireSphere(origin, 0.025f);
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(origin, end);
-        Gizmos.DrawWireSphere(end, 0.025f);
-
-        Gizmos.color = previousColor;
     }
 }

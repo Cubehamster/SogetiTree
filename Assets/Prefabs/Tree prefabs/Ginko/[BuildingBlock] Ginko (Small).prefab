@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 7358e191-33b7-43ca-b066-b2f00531ac66
-  instanceId: e26e1012-aa9c-47fd-bedc-713969e54453
+  instanceId: c64176b0-d55d-4edb-967e-0e2f45a61fb8
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: f8766c17-aaf8-4b55-9431-de8deea83842
-  instanceId: 2580b39e-dd1c-4930-814b-2c5c2b30271c
+  instanceId: 7fee8a26-7183-449d-9f2f-f29046988da2
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: f8338144-8280-4ff6-9455-ae2bb9c20fe8
@@ -314,11 +314,16 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7543001131977838893, guid: e7959e47c8ee5e24993654da60ac1afc, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 357718779113377470, guid: e7959e47c8ee5e24993654da60ac1afc, type: 3}
-      insertIndex: 0
+    - targetCorrespondingSourceObject: {fileID: 6113990621884337858, guid: e7959e47c8ee5e24993654da60ac1afc, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 6214846488538106147}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7959e47c8ee5e24993654da60ac1afc, type: 3}
+--- !u!4 &875945117575242282 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6113990621884337858, guid: e7959e47c8ee5e24993654da60ac1afc, type: 3}
+  m_PrefabInstance: {fileID: 6412766751300463848}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6631662841339912790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 357718779113377470, guid: e7959e47c8ee5e24993654da60ac1afc, type: 3}
@@ -330,8 +335,16 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6631662841339912790}
+    m_TransformParent: {fileID: 875945117575242282}
     m_Modifications:
+    - target: {fileID: 56402030252931547, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_Size.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 56402030252931547, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_Offset.z
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 62531411114185484, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
       propertyPath: m_Name
       value: Blobshadow
