@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4514648067293613740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7577738454186377703}
+  - component: {fileID: 541479476096394722}
+  - component: {fileID: 1039127411471991935}
+  m_Layer: 0
+  m_Name: Inspection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7577738454186377703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4514648067293613740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.46535, y: -1.04211, z: -0.73695}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &541479476096394722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4514648067293613740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777df87387de42f4e8b095a3bb3ed8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandSoilInspector
+  handSource: {fileID: 0}
+  rayInteractor: {fileID: 0}
+  display: {fileID: 1039127411471991935}
+  head: {fileID: 0}
+  displayAnchor: {fileID: 0}
+  displayWorldOffset: {x: 0, y: 0.18, z: 0}
+  materialView: {fileID: 0}
+  sampleRadius: 0.5
+  sampleTicksPerSecond: 10
+  falloffPower: 2
+  requireIndexExtended: 1
+  invertPalmNormal: 0
+  fingerStraightness: 0.65
+  headLookAngle: 20
+  palmFacingAngle: 55
+  maximumPalmDistance: 0.8
+  activationDelay: 0.2
+  releaseDelay: 0.12
+--- !u!114 &1039127411471991935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4514648067293613740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750956eabaef30646956594343fb9996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeSoilDisplay
+  externalInput: 0
+  showExternalRequirements: 0
+  treePlanter: {fileID: 0}
+  treeState: {fileID: 0}
+  anchor: {fileID: 0}
+  worldOffset: {x: 0, y: 1.5, z: 0}
+  cubeSize: 0.3
+  lineThickness: 0.002
+  cornerRadius: 0.009
+  soilDotRadius: 0.018
+  gradientSegments: 12
+  rotationDegreesPerSecond: 12
+  showWhilePlanted: 1
+  validSoilDotColor: {r: 0, g: 1, b: 0, a: 1}
+  displayShader: {fileID: 0}
+  displayStatus: Not initialized
