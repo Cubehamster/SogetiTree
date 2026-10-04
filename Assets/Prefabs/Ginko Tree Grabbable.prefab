@@ -1,0 +1,535 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4631183237216601462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6433919302375472114}
+  - component: {fileID: 690636974702475098}
+  - component: {fileID: 5676354248851834332}
+  - component: {fileID: 8805579950017286836}
+  m_Layer: 0
+  m_Name: '[BuildingBlock] HandGrabInstallationRoutine'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6433919302375472114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4631183237216601462}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8495010716674007095}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &690636974702475098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4631183237216601462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
+  blockId: f8766c17-aaf8-4b55-9431-de8deea83842
+  instanceId: df9b18c2-16f5-4f11-8b3d-188c91b59204
+  version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: f8338144-8280-4ff6-9455-ae2bb9c20fe8
+    _installationVariants:
+    - _memberName: mode
+      _value: '{"value__":0}'
+--- !u!114 &5676354248851834332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4631183237216601462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a7676b01585ce43908639a27765dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactorFilters: []
+  _maxInteractors: -1
+  _maxSelectingInteractors: -1
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 4654403387886725870}
+  _rigidbody: {fileID: 4628285185828243129}
+  _resetGrabOnGrabsUpdated: 1
+  _scoringModifier:
+    _positionRotationWeight: 0.5
+  _slippiness: 0
+  _supportedGrabTypes: 3
+  _pinchGrabRules:
+    _thumbRequirement: 0
+    _indexRequirement: 1
+    _middleRequirement: 1
+    _ringRequirement: 0
+    _pinkyRequirement: 0
+    _unselectMode: 1
+  _palmGrabRules:
+    _thumbRequirement: 1
+    _indexRequirement: 0
+    _middleRequirement: 2
+    _ringRequirement: 2
+    _pinkyRequirement: 1
+    _unselectMode: 0
+  _movementProvider: {fileID: 0}
+  _handAligment: 0
+  _handGrabPoses: []
+--- !u!114 &8805579950017286836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4631183237216601462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactorFilters: []
+  _maxInteractors: -1
+  _maxSelectingInteractors: -1
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 4654403387886725870}
+  _rigidbody: {fileID: 4628285185828243129}
+  _grabSource: {fileID: 0}
+  _useClosestPointAsGrabSource: 0
+  _releaseDistance: 0
+  _resetGrabOnGrabsUpdated: 1
+--- !u!1 &6743504828606938541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8495010716674007095}
+  - component: {fileID: 8284142149124290178}
+  - component: {fileID: 7236724314311850702}
+  - component: {fileID: 4628285185828243129}
+  - component: {fileID: 4654403387886725870}
+  - component: {fileID: 3978695074436245830}
+  - component: {fileID: 7723364220676500167}
+  m_Layer: 0
+  m_Name: Ginko Tree Grabbable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8495010716674007095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743504828606938541}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.597, y: -1, z: -0.735}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 4021424089704885043}
+  - {fileID: 6433919302375472114}
+  - {fileID: 8696933655481391620}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8284142149124290178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743504828606938541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
+  blockId: 7358e191-33b7-43ca-b066-b2f00531ac66
+  instanceId: 3ed9ab23-97f7-46fa-8c1b-4c69b4ca42f2
+  version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
+--- !u!65 &7236724314311850702
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743504828606938541}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 10, z: 2}
+  m_Center: {x: -0.07, y: 4.79, z: 0.05}
+--- !u!54 &4628285185828243129
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743504828606938541}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &4654403387886725870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743504828606938541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
+  _transferOnSecondSelection: 0
+  _addNewPointsToFront: 0
+  _forwardElement: {fileID: 0}
+  _oneGrabTransformer: {fileID: 0}
+  _twoGrabTransformer: {fileID: 0}
+  _targetTransform: {fileID: 8495010716674007095}
+  _maxGrabPoints: -1
+  _rigidbody: {fileID: 4628285185828243129}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1
+  _forceKinematicDisabled: 0
+--- !u!114 &3978695074436245830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743504828606938541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa2137f85132c94c963b189218e3ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreePlanter
+  grabbable: {fileID: 4654403387886725870}
+  treeTransform: {fileID: 8495010716674007095}
+  rootPoint: {fileID: 8495010716674007095}
+  treeRigidbody: {fileID: 4628285185828243129}
+  rayDistance: 0.3
+  rayStartOffset: 0.1
+  snapDuration: 0.3
+  onPlanted:
+    m_PersistentCalls:
+      m_Calls: []
+  soilManager: {fileID: 0}
+  previewDecal: {fileID: 1136852492208689548}
+  decalColorProperty: _BaseColor
+  sampleRadius: 0.2
+  previewTicksPerSecond: 10
+  falloffPower: 2
+--- !u!114 &7723364220676500167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743504828606938541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4330fe0d8455c0243bbabab151d0ec35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeState
+  stage: 0
+  isAlive: 1
+  growth: 0
+  health: 25
+  treeManager: {fileID: 0}
+  soilManager: {fileID: 0}
+  treePlanter: {fileID: 3978695074436245830}
+  rootPoint: {fileID: 0}
+  plantedWithoutPlanter: 0
+  bigPool: {fileID: 0}
+  smallPool: {fileID: 0}
+  saplingPool: {fileID: 0}
+  seedPool: {fileID: 0}
+  visualParent: {fileID: 8495010716674007095}
+  grabCollider: {fileID: 7236724314311850702}
+  grabbableTransform: {fileID: 8495010716674007095}
+  decalProjector: {fileID: 1136852492208689548}
+  bigCollider:
+    center: {x: -0.07, y: 4.79, z: 0.05}
+    size: {x: 2, y: 10, z: 2}
+    localScale: {x: 0.03, y: 0.03, z: 0.03}
+    decalWidthHeight: {x: 0.4, y: 0.4}
+    rootRadius: 0.5
+    rootFalloff: 2
+    aliveSoilRates: {x: -0.005, y: -0.01, z: -0.02}
+    deadSoilRates: {x: 0, y: 0.005, z: 0}
+    minimumSoil: {r: 0.3921569, g: 0.3137255, b: 0.3529412, a: 1}
+    maximumSoil: {r: 0.78431374, g: 0.8627451, b: 0.6666667, a: 1}
+    growthPerSecond: 1
+    growthToNextStage: 60
+    neighbourRadius: 2
+    blockedGrowthPenalty: 10
+    blockedHealthPenalty: 10
+    maximumHealth: 100
+    healthLossPerSecond: 1
+    healthRecoveryPerSecond: 0
+    healthGainOnEntry: 25
+  smallCollider:
+    center: {x: -0.07, y: 2.9, z: 0.05}
+    size: {x: 2, y: 6.62, z: 2}
+    localScale: {x: 0.02, y: 0.02, z: 0.02}
+    decalWidthHeight: {x: 0.2, y: 0.2}
+    rootRadius: 0.5
+    rootFalloff: 2
+    aliveSoilRates: {x: -0.005, y: -0.01, z: -0.02}
+    deadSoilRates: {x: 0, y: 0.005, z: 0}
+    minimumSoil: {r: 0.39215687, g: 0.27450982, b: 0.23529412, a: 1}
+    maximumSoil: {r: 0.7058824, g: 0.78431374, b: 0.6666667, a: 1}
+    growthPerSecond: 1
+    growthToNextStage: 60
+    neighbourRadius: 2
+    blockedGrowthPenalty: 10
+    blockedHealthPenalty: 10
+    maximumHealth: 100
+    healthLossPerSecond: 1
+    healthRecoveryPerSecond: 0
+    healthGainOnEntry: 20
+  saplingCollider:
+    center: {x: -0.07, y: 2.9, z: 0.05}
+    size: {x: 2, y: 6.62, z: 2}
+    localScale: {x: 0.014, y: 0.014, z: 0.014}
+    decalWidthHeight: {x: 0.1, y: 0.1}
+    rootRadius: 0.5
+    rootFalloff: 2
+    aliveSoilRates: {x: -0.005, y: -0.01, z: -0.02}
+    deadSoilRates: {x: 0, y: 0.005, z: 0}
+    minimumSoil: {r: 0.15686275, g: 0.2, b: 0.15686275, a: 1}
+    maximumSoil: {r: 0.5882353, g: 0.6862745, b: 0.6862745, a: 1}
+    growthPerSecond: 1
+    growthToNextStage: 30
+    neighbourRadius: 2
+    blockedGrowthPenalty: 10
+    blockedHealthPenalty: 10
+    maximumHealth: 100
+    healthLossPerSecond: 1
+    healthRecoveryPerSecond: 0
+    healthGainOnEntry: 20
+  seedCollider:
+    center: {x: 0.09, y: 0.06, z: -0.16}
+    size: {x: 2, y: 2.42, z: 2}
+    localScale: {x: 0.016, y: 0.016, z: 0.016}
+    decalWidthHeight: {x: 0.1, y: 0.1}
+    rootRadius: 0.5
+    rootFalloff: 2
+    aliveSoilRates: {x: -0.005, y: -0.01, z: -0.02}
+    deadSoilRates: {x: 0, y: 0.005, z: 0}
+    minimumSoil: {r: 0.05882353, g: 0.078431375, b: 0.09803922, a: 1}
+    maximumSoil: {r: 0.49019608, g: 0.5882353, b: 0.5882353, a: 1}
+    growthPerSecond: 1
+    growthToNextStage: 10
+    neighbourRadius: 2
+    blockedGrowthPenalty: 10
+    blockedHealthPenalty: 10
+    maximumHealth: 100
+    healthLossPerSecond: 1
+    healthRecoveryPerSecond: 0
+    healthGainOnEntry: 0
+--- !u!1 &9196045280041499007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8696933655481391620}
+  - component: {fileID: 6511659089136879941}
+  m_Layer: 0
+  m_Name: SoilDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8696933655481391620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196045280041499007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8495010716674007095}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6511659089136879941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196045280041499007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750956eabaef30646956594343fb9996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeSoilDisplay
+  treePlanter: {fileID: 3978695074436245830}
+  treeState: {fileID: 7723364220676500167}
+  anchor: {fileID: 8495010716674007095}
+  worldOffset: {x: 0, y: 0.15, z: 0}
+  cubeSize: 0.1
+  lineThickness: 0.001
+  cornerRadius: 0.004
+  soilDotRadius: 0.008
+  gradientSegments: 12
+  rotationDegreesPerSecond: 12
+  showWhilePlanted: 1
+  validSoilDotColor: {r: 0, g: 1, b: 0, a: 1}
+  displayShader: {fileID: 4800000, guid: db753b18e4fc674499e48264a6ef2215, type: 3}
+  displayStatus: Not initialized
+--- !u!1001 &1084954130361608279
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8495010716674007095}
+    m_Modifications:
+    - target: {fileID: 56402030252931547, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 56402030252931547, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 56402030252931547, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_Size.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 56402030252931547, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_Offset.z
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 56402030252931547, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_FadeFactor
+      value: 0.979
+      objectReference: {fileID: 0}
+    - target: {fileID: 62531411114185484, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_Name
+      value: Blobshadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+--- !u!114 &1136852492208689548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 56402030252931547, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+  m_PrefabInstance: {fileID: 1084954130361608279}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.DecalProjector
+--- !u!4 &4021424089704885043 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4089409129209463652, guid: ffe7e463dc597944eb9b990633d20b9c, type: 3}
+  m_PrefabInstance: {fileID: 1084954130361608279}
+  m_PrefabAsset: {fileID: 0}

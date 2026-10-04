@@ -25,6 +25,10 @@ public sealed class TreeState : MonoBehaviour
         public Color maximumSoil = new Color(0.7f, 1f, 0.9f, 1f);
         [Min(0f)] public float growthPerSecond = 1f;
         [Min(0.01f)] public float growthToNextStage = 60f;
+        [Header("Neighbour competition")]
+        [Min(0f)] public float neighbourRadius = 2f;
+        [Min(0f)] public float blockedGrowthPenalty = 10f;
+        [Min(0f)] public float blockedHealthPenalty = 10f;
         [Header("Health")]
         [Min(0.01f)] public float maximumHealth = 100f;
         [Min(0f)] public float healthLossPerSecond = 1f;
@@ -38,6 +42,8 @@ public sealed class TreeState : MonoBehaviour
     [SerializeField] private bool isAlive = true;
     [SerializeField, Min(0f)] private float growth;
     [SerializeField] private float health = 50f;
+    [SerializeField] private TreeManager treeManager;
+    public Vector3 Location => transform.position;
     [Header("Soil simulation")]
     [SerializeField] private SoilManager soilManager;
     [SerializeField] private TreePlanter treePlanter;
@@ -61,6 +67,15 @@ public sealed class TreeState : MonoBehaviour
     [SerializeField] private StageSettings saplingCollider = new StageSettings();
     [SerializeField] private StageSettings seedCollider = new StageSettings();
 
+    public Color MinimumSoil => GetSettings(stage).minimumSoil;
+    public Color MaximumSoil => GetSettings(stage).maximumSoil;
+    public bool TryGetCurrentSoil(out Color color)
+    {
+        color = default;
+        return IsPlanted && soilManager != null && influence != null
+            && soilManager.TrySample(influence, out color);
+    }
+
     public GrowthStage Stage => stage;
     public bool IsAlive => isAlive;
     public float Growth => growth;
@@ -76,7 +91,7 @@ public sealed class TreeState : MonoBehaviour
     private SoilManager.RootInfluence influence;
     private bool registrationAttempted;
     private SoilManager subscribedManager;
-    private bool IsPlanted => treePlanter != null ? treePlanter.IsPlanted : plantedWithoutPlanter;
+    public bool IsPlanted => treePlanter != null ? treePlanter.IsPlanted : plantedWithoutPlanter;
 
     private void Reset()
     {
@@ -88,6 +103,7 @@ public sealed class TreeState : MonoBehaviour
 
     private void OnEnable()
     {
+        if (treeManager != null) treeManager.RegisterTree(this);
         if (treePlanter == null) treePlanter = GetComponent<TreePlanter>();
         StageSettings settings = GetSettings(stage);
         if (settings != null) health = Mathf.Min(health, settings.maximumHealth);
@@ -95,6 +111,13 @@ public sealed class TreeState : MonoBehaviour
         RefreshVisual();
         subscribedManager = soilManager;
         if (subscribedManager != null) subscribedManager.TickCompleted += OnSoilTick;
+    }
+
+    public void SetTreeManager(TreeManager manager)
+    {
+        if (treeManager != null) treeManager.UnregisterTree(this);
+        treeManager = manager;
+        if (isActiveAndEnabled && treeManager != null) treeManager.RegisterTree(this);
     }
 
     public void SetMeshPools(TreeMeshPool big, TreeMeshPool small,
@@ -185,7 +208,17 @@ public sealed class TreeState : MonoBehaviour
         if (stage == GrowthStage.Big) return;
         growth += settings.growthPerSecond * elapsedSeconds;
         if (growth >= Mathf.Max(0.01f, settings.growthToNextStage))
+        {
+            if (treeManager != null && treeManager.HasLargerNeighbour(this, settings.neighbourRadius))
+            {
+                // Subtract the configured penalty; retry on a later tick at the threshold.
+                growth = Mathf.Max(0f, growth - settings.blockedGrowthPenalty);
+                health -= settings.blockedHealthPenalty;
+                if (health < 0f) SetAlive(false);
+                return;
+            }
             SetStage((GrowthStage)((int)stage + 1));
+        }
     }
 
     private static bool MeetsBounds(Color value, Color lower, Color upper)
@@ -306,6 +339,7 @@ public sealed class TreeState : MonoBehaviour
 
     private void OnDisable()
     {
+        if (treeManager != null) treeManager.UnregisterTree(this);
         if (subscribedManager != null) subscribedManager.TickCompleted -= OnSoilTick;
         subscribedManager = null;
         UnregisterRoots();
